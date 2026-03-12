@@ -1,86 +1,54 @@
 import { useState, useRef } from "react";
-import { FileText, ClipboardList, BarChart2, Zap, Monitor, CheckCircle2, Shield, ChevronDown, ChevronUp, Star } from "lucide-react";
+import { CheckCircle2, Shield } from "lucide-react";
 
 const OFFER_LINK = "https://classpilott.vercel.app/comecar";
 
-const benefits = [
-  { icon: FileText, label: "Plano de aula completo", detail: "Estruturado, com objetivos e metodologia" },
-  { icon: ClipboardList, label: "Atividade para os alunos", detail: "Pronta para imprimir ou enviar digital" },
-  { icon: BarChart2, label: "Avaliação pronta", detail: "Questões alinhadas ao conteúdo da aula" },
-  { icon: Zap, label: "Dinâmica engajante", detail: "Para qualquer faixa etária e disciplina" },
-  { icon: Monitor, label: "Slides da aula", detail: "Apresentação visual para usar em sala" },
-];
-
-const faqs = [
-  {
-    q: "Funciona para qualquer disciplina?",
-    a: "Sim. O ClassPilot foi criado para funcionar com qualquer matéria do Ensino Fundamental ao Médio — de Matemática a Artes, de Português a Ciências.",
-  },
-  {
-    q: "É diferente do ChatGPT?",
-    a: "Muito diferente. O ClassPilot é treinado especificamente para educação. Ele entende BNCC, linguagem pedagógica e cria materiais no formato que você realmente usa em sala — não texto genérico.",
-  },
-  {
-    q: "Posso cancelar quando quiser?",
-    a: "Sim, sem burocracia. Você cancela com um clique no painel, a qualquer momento, e não é cobrado no mês seguinte.",
-  },
-  {
-    q: "Quando posso começar a usar?",
-    a: "Imediatamente após a ativação. Seu acesso é liberado na hora, sem esperar aprovação.",
-  },
-];
-
-const OfferCTAButton = ({ text, className = "" }: { text: string; className?: string }) => (
-  <a
-    href={OFFER_LINK}
-    target="_blank"
-    rel="noopener noreferrer"
-    className={`block w-full bg-primary text-primary-foreground font-semibold text-base sm:text-lg px-8 py-5 rounded-[14px] transition-all duration-200 hover:bg-[hsl(var(--primary-hover))] hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 text-center ${className}`}
-    style={{ fontFamily: "Montserrat, sans-serif" }}
-  >
-    {text}
-  </a>
-);
-
 const Index = () => {
   const [videoStarted, setVideoStarted] = useState(false);
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
   const offerRef = useRef<HTMLElement>(null);
-
-  const scrollToOffer = () => {
-    offerRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="mx-auto max-w-2xl px-5 py-10 sm:py-14">
+      <div className="mx-auto max-w-lg px-5 py-8 sm:py-12">
 
         {/* Logo */}
-        <div className="flex justify-center mb-5">
-          <img src="/logo.png" alt="ClassPilot Logo" className="h-24 object-contain" />
+        <div className="flex justify-center mb-6">
+          <img src="/logo.png" alt="ClassPilot" className="h-20 object-contain" />
         </div>
 
-        {/* Hero */}
-        <section className="text-center mb-10">
-          <h1
-            className="sm:text-4xl font-extrabold text-foreground leading-tight mb-3 text-xl"
+        {/* 1. Confirmação de compra */}
+        <div className="rounded-xl border border-green-200 bg-green-50 px-5 py-4 mb-6 flex items-start gap-3">
+          <span className="text-xl mt-0.5">🎉</span>
+          <div>
+            <p className="font-semibold text-green-800 text-sm" style={{ fontFamily: "Montserrat, sans-serif" }}>
+              Pagamento confirmado!
+            </p>
+            <p className="text-green-700 text-sm mt-0.5" style={{ fontFamily: "Inter, sans-serif" }}>
+              Seu acesso ao material está sendo liberado e você receberá tudo no e-mail em cerca de 2 minutos.
+            </p>
+          </div>
+        </div>
+
+        {/* 2 + 3. Gancho + Headline */}
+        <section className="text-center mb-6">
+          <p
+            className="text-sm text-primary font-semibold uppercase tracking-wide mb-3"
             style={{ fontFamily: "Montserrat, sans-serif" }}
           >
-            Seu material de dinâmicas já está{" "}
-            <span className="text-primary">QUASE liberado…</span>
-          </h1>
-          <h2
-            className="sm:text-2xl text-muted-foreground leading-snug mb-0 text-lg font-medium"
-            style={{ fontFamily: "Inter, sans-serif" }}
+            Enquanto isso, preparei um bônus surpresa para você
+          </p>
+          <h1
+            className="text-xl sm:text-2xl font-extrabold text-foreground leading-snug"
+            style={{ fontFamily: "Montserrat, sans-serif" }}
           >
-            Enquanto isso, assista esse vídeo de 2 minutos e descubra como receber um{" "}
-            <span className="text-foreground font-semibold">BÔNUS extra</span> no final.
-          </h2>
+            Veja como preparar planos de aula, slides, atividades e avaliações em{" "}
+            <span className="text-primary">segundos</span> usando um único aplicativo.
+          </h1>
         </section>
 
-        {/* Video */}
+        {/* 4. Vídeo */}
         <section className="mb-6">
-          <div className="rounded-2xl shadow-sm overflow-hidden" style={{ padding: "56.25% 0 0 0", position: "relative" }}>
+          <div className="rounded-2xl shadow-sm overflow-hidden" style={{ padding: "177.78% 0 0 0", position: "relative" }}>
             {!videoStarted ? (
               <button
                 onClick={() => setVideoStarted(true)}
@@ -112,107 +80,77 @@ const Index = () => {
               </button>
             ) : (
               <iframe
-                src="https://player.vimeo.com/video/1172014535?badge=0&autopause=1&autoplay=1&player_id=0&app_id=58479"
+                src="https://player.vimeo.com/video/1172790885?badge=0&autopause=1&autoplay=1&player_id=0&app_id=58479"
                 allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
                 referrerPolicy="strict-origin-when-cross-origin"
                 style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", border: "none" }}
-                title="minivsl classpilot"
+                title="ClassPilot"
               />
             )}
           </div>
         </section>
 
-        {/* Primary CTA — scroll to offer */}
-        <section className="mb-10">
-          <button
-            onClick={scrollToOffer}
-            className="block w-full bg-primary text-primary-foreground font-semibold text-base sm:text-lg px-8 py-5 rounded-[14px] transition-all duration-200 hover:bg-[hsl(var(--primary-hover))] hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 text-center"
-            style={{ fontFamily: "Montserrat, sans-serif" }}
-          >
-            Quero ativar meu acesso ao ClassPilot
-          </button>
-        </section>
-
-        {/* Social proof */}
-        <section className="flex items-center justify-center gap-2 mb-10">
-          <div className="flex -space-x-2">
-            {["bg-blue-400", "bg-indigo-400", "bg-sky-500", "bg-blue-600"].map((c, i) => (
-              <div key={i} className={`w-7 h-7 rounded-full border-2 border-background ${c} flex items-center justify-center`}>
-                <span className="text-white text-[9px] font-bold">{["MR", "AS", "JP", "LF"][i]}</span>
-              </div>
-            ))}
-          </div>
-          <div className="flex flex-col">
-            <div className="flex gap-0.5">
-              {[...Array(5)].map((_, i) => <Star key={i} className="w-3 h-3 fill-yellow-400 text-yellow-400" />)}
-            </div>
-            <span className="text-xs text-muted-foreground" style={{ fontFamily: "Inter, sans-serif" }}>
-              Professores de todo o Brasil já usam o ClassPilot
-            </span>
-          </div>
-        </section>
-
-        {/* Benefits */}
-        <section className="bg-muted rounded-2xl px-6 py-8 mb-10">
-          <h3
-            className="sm:text-2xl text-foreground text-center mb-2 text-xl font-extrabold"
-            style={{ fontFamily: "Montserrat, sans-serif" }}
-          >
-            O que o ClassPilot cria para você
-          </h3>
-          <p className="text-center text-sm text-muted-foreground mb-6" style={{ fontFamily: "Inter, sans-serif" }}>
-            Tudo isso em menos de 30 segundos, para qualquer matéria
+        {/* 5. Benefícios rápidos */}
+        <section className="bg-muted rounded-2xl px-5 py-5 mb-6">
+          <p className="text-sm font-semibold text-foreground mb-3" style={{ fontFamily: "Montserrat, sans-serif" }}>
+            Com o ClassPilot você pode gerar automaticamente:
           </p>
-          <ul className="space-y-3">
-            {benefits.map(({ label, detail }) => (
-              <li key={label} className="flex items-center gap-4 bg-card rounded-xl px-5 py-4 border border-border shadow-sm">
-                <CheckCircle2 className="w-5 h-5 flex-shrink-0 text-primary" />
-                <div>
-                  <span className="text-foreground font-semibold block text-sm" style={{ fontFamily: "Inter, sans-serif" }}>{label}</span>
-                  <span className="text-muted-foreground text-xs" style={{ fontFamily: "Inter, sans-serif" }}>{detail}</span>
-                </div>
+          <ul className="space-y-2">
+            {[
+              "Planos de aula estruturados",
+              "Slides prontos para apresentar",
+              "Atividades para os alunos",
+              "Avaliações completas",
+            ].map((item) => (
+              <li key={item} className="flex items-center gap-2.5 text-sm text-foreground" style={{ fontFamily: "Inter, sans-serif" }}>
+                <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0" />
+                {item}
               </li>
             ))}
           </ul>
         </section>
 
-        {/* Offer */}
-        <section ref={offerRef} className="relative border-2 border-primary rounded-2xl px-6 py-8 mb-4 shadow-sm mt-5 scroll-mt-6">
-          {/* Urgency badge */}
+        {/* 6. Ancoragem + Oferta */}
+        <section ref={offerRef} className="relative border-2 border-primary rounded-2xl px-6 py-7 mb-3 shadow-sm mt-5 scroll-mt-6">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
             <span className="bg-primary text-primary-foreground text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wide whitespace-nowrap" style={{ fontFamily: "Montserrat, sans-serif" }}>
               Condição exclusiva desta página
             </span>
           </div>
 
-          <div className="text-center pt-3">
-            <p className="text-muted-foreground text-sm sm:text-base mb-1" style={{ fontFamily: "Inter, sans-serif" }}>
-              Na página oficial, o acesso ao ClassPilot custa{" "}
-              <span className="line-through font-semibold text-destructive">R$59,90 por mês</span>.
+          <div className="text-center pt-2">
+            <p className="text-muted-foreground text-sm mb-1" style={{ fontFamily: "Inter, sans-serif" }}>
+              Plataformas semelhantes cobram{" "}
+              <span className="font-semibold text-foreground">mais de R$100/mês</span>.
             </p>
-            <p className="text-muted-foreground text-sm sm:text-base mb-6" style={{ fontFamily: "Inter, sans-serif" }}>
-              Por ter adquirido o material de dinâmicas, desbloqueou uma condição especial:
+            <p className="text-muted-foreground text-sm mb-5" style={{ fontFamily: "Inter, sans-serif" }}>
+              Por ter adquirido o material de dinâmicas, você desbloqueou:
             </p>
 
-            <p className="text-muted-foreground text-xs font-bold uppercase tracking-widest mb-1" style={{ fontFamily: "Montserrat, sans-serif" }}>
-              Sua condição especial
+            <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-0.5" style={{ fontFamily: "Montserrat, sans-serif" }}>
+              de <span className="line-through">R$59,90</span> por apenas
             </p>
-            <p
-              className="text-5xl sm:text-6xl font-extrabold text-primary leading-none"
-              style={{ fontFamily: "Montserrat, sans-serif" }}
-            >
+            <p className="text-5xl sm:text-6xl font-extrabold text-primary leading-none mb-1" style={{ fontFamily: "Montserrat, sans-serif" }}>
               R$29,90
             </p>
-            <p className="text-muted-foreground text-base mt-1 mb-6" style={{ fontFamily: "Inter, sans-serif" }}>
+            <p className="text-muted-foreground text-sm mb-6" style={{ fontFamily: "Inter, sans-serif" }}>
               por mês · cancele quando quiser
             </p>
 
-            <OfferCTAButton text="Ativar meu acesso agora →" className="mb-4" />
+            {/* CTA */}
+            <a
+              href={OFFER_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block w-full bg-primary text-primary-foreground font-bold text-base sm:text-lg px-8 py-5 rounded-[14px] transition-all duration-200 hover:bg-[hsl(var(--primary-hover))] hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 text-center mb-4"
+              style={{ fontFamily: "Montserrat, sans-serif" }}
+            >
+              🔓 Ativar acesso ao ClassPilot
+            </a>
 
-            {/* Trust row */}
             <div className="flex items-center justify-center gap-4 flex-wrap">
               <span className="flex items-center gap-1.5 text-xs text-muted-foreground" style={{ fontFamily: "Inter, sans-serif" }}>
-                <Shield className="w-3.5 h-3.5 text-primary" /> Pagamento seguro
+                <Shield className="w-3.5 h-3.5 text-primary" /> Acesso imediato
               </span>
               <span className="text-muted-foreground text-xs">·</span>
               <span className="flex items-center gap-1.5 text-xs text-muted-foreground" style={{ fontFamily: "Inter, sans-serif" }}>
@@ -220,56 +158,22 @@ const Index = () => {
               </span>
               <span className="text-muted-foreground text-xs">·</span>
               <span className="flex items-center gap-1.5 text-xs text-muted-foreground" style={{ fontFamily: "Inter, sans-serif" }}>
-                <CheckCircle2 className="w-3.5 h-3.5 text-primary" /> Acesso imediato
+                <CheckCircle2 className="w-3.5 h-3.5 text-primary" /> Cancele quando quiser
               </span>
             </div>
           </div>
         </section>
 
-        {/* Guarantee note */}
-        <div className="flex items-start gap-3 bg-muted rounded-xl px-5 py-4 mb-10 border border-border">
-          <Shield className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-          <p className="text-sm text-muted-foreground" style={{ fontFamily: "Inter, sans-serif" }}>
-            <span className="text-foreground font-semibold">Sem risco nenhum.</span> Você cancela a qualquer momento com um clique, sem precisar falar com ninguém. Não há fidelidade, multa ou burocracia.
-          </p>
-        </div>
-
-        {/* FAQ */}
-        <section className="mb-10">
-          <h3
-            className="text-xl font-extrabold text-foreground text-center mb-5"
-            style={{ fontFamily: "Montserrat, sans-serif" }}
+        {/* 7. Botão recusar */}
+        <div className="text-center pb-10 pt-3">
+          <button
+            onClick={() => {}}
+            className="text-xs text-muted-foreground underline underline-offset-2 hover:text-foreground transition-colors"
+            style={{ fontFamily: "Inter, sans-serif" }}
           >
-            Perguntas frequentes
-          </h3>
-          <div className="space-y-3">
-            {faqs.map((faq, i) => (
-              <div key={i} className="border border-border rounded-xl overflow-hidden">
-                <button
-                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  className="w-full flex items-center justify-between px-5 py-4 text-left gap-4 bg-card hover:bg-muted transition-colors"
-                >
-                  <span className="text-foreground font-semibold text-sm" style={{ fontFamily: "Inter, sans-serif" }}>
-                    {faq.q}
-                  </span>
-                  {openFaq === i
-                    ? <ChevronUp className="w-4 h-4 text-muted-foreground flex-shrink-0" />
-                    : <ChevronDown className="w-4 h-4 text-muted-foreground flex-shrink-0" />}
-                </button>
-                {openFaq === i && (
-                  <div className="px-5 py-4 bg-muted border-t border-border">
-                    <p className="text-sm text-muted-foreground" style={{ fontFamily: "Inter, sans-serif" }}>{faq.a}</p>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Footer note */}
-        <p className="text-center text-xs text-muted-foreground pb-8" style={{ fontFamily: "Inter, sans-serif" }}>
-          Pagamento seguro · Sem fidelidade · Cancele quando quiser
-        </p>
+            Não, prefiro continuar sem essa ferramenta.
+          </button>
+        </div>
 
       </div>
     </div>
