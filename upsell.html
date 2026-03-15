@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Oferta Especial — Mapa da Aula Participativa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <script src="https://wiapy.com/sell/1.0.0/sell.min.js"></script>
+
+  <style>
+    /* ─── Reset & Base ─────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red-600:  #C62828;
+      --red-500:  #E53935;
+      --red-400:  #EF5350;
+      --red-100:  #FFEBEE;
+      --red-50:   #FFF5F5;
+      --green-bg: #E8F5E9;
+      --green-tx: #1B5E20;
+      --green-ic: #2E7D32;
+      --gray-900: #111827;
+      --gray-700: #374151;
+      --gray-500: #6B7280;
+      --gray-200: #E5E7EB;
+      --gray-100: #F9FAFB;
+      --white:    #FFFFFF;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+      --shadow-md: 0 4px 16px rgba(0,0,0,.10);
+      --shadow-lg: 0 8px 32px rgba(0,0,0,.14);
+      --radius:   12px;
+      --font: 'Inter', system-ui, sans-serif;
+    }
+
+    html { font-family: var(--font); color: var(--gray-900); background: var(--white); scroll-behavior: smooth; }
+
+    body { min-height: 100vh; overflow-x: hidden; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    }
+
+    /* ─── Utility ──────────────────────────────────────────── */
+    .container { width: 100%; max-width: 760px; margin: 0 auto; padding: 0 20px; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+    /* ─── Header Image ─────────────────────────────────────── */
+    .header-img {
+      width: 100%;
+      display: block;
+      line-height: 0;
+    }
+
+    .header-img img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* ─── Hero / First Fold ────────────────────────────────── */
+    .hero {
+      background: var(--white);
+      padding: 56px 0 64px;
+      text-align: center;
+    }
+
+    .hero__headline {
+      font-size: clamp(1.75rem, 5vw, 2.55rem);
+      font-weight: 900;
+      line-height: 1.2;
+      color: var(--gray-900);
+      max-width: 620px;
+      margin: 0 auto 36px;
+      opacity: 0;
+      transform: translateY(12px);
+      animation: fadeUp .45s ease-out .15s forwards;
+    }
+
+    .hero__headline span { color: var(--red-500); }
+
+    /* ─── Hero Question ────────────────────────────────────── */
+    .hero-question {
+      max-width: 600px;
+      margin: 0 auto 40px;
+      opacity: 0;
+      transform: translateY(10px);
+      animation: fadeUp .45s ease-out .25s forwards;
+    }
+
+    .hero-question p {
+      font-size: clamp(1.2rem, 3.5vw, 1.65rem);
+      font-weight: 800;
+      line-height: 1.45;
+      color: var(--gray-900);
+    }
+
+    .hq-muted {
+      color: #9CA3AF;
+      font-weight: 600;
+      text-decoration: line-through;
+      text-decoration-color: #D1D5DB;
+    }
+
+    .hq-red {
+      color: var(--red-600);
+      font-weight: 900;
+      text-decoration: underline;
+      text-decoration-thickness: 3px;
+      text-underline-offset: 5px;
+      text-decoration-color: var(--red-400);
+    }
+
+    /* ─── Stat Block ────────────────────────────────────────── */
+    .hero-stat {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      max-width: 580px;
+      margin: 0 auto 40px;
+      background: var(--gray-100);
+      border-radius: var(--radius);
+      border-left: 4px solid var(--red-500);
+      padding: 24px 28px;
+      text-align: left;
+      opacity: 0;
+      transform: translateY(10px);
+      animation: fadeUp .45s ease-out .33s forwards;
+    }
+
+    .hero-stat__number {
+      font-size: clamp(2.8rem, 8vw, 4rem);
+      font-weight: 900;
+      color: var(--red-500);
+      line-height: 1;
+      flex-shrink: 0;
+      letter-spacing: -.03em;
+    }
+
+    .hero-stat__divider {
+      width: 1.5px;
+      height: 52px;
+      background: var(--gray-200);
+      flex-shrink: 0;
+    }
+
+    .hero-stat__text {
+      font-size: clamp(.88rem, 2vw, .97rem);
+      color: var(--gray-700);
+      line-height: 1.7;
+    }
+
+    .hero-stat__text strong {
+      color: var(--gray-900);
+      font-weight: 800;
+    }
+
+    .hero-stat__text em {
+      font-style: normal;
+      color: var(--red-600);
+      font-weight: 800;
+    }
+
+    /* ─── Bonus Invite ──────────────────────────────────────── */
+    .hero-bonus {
+      max-width: 520px;
+      margin: 0 auto 24px;
+      opacity: 0;
+      animation: fadeUp .4s ease-out .42s forwards;
+    }
+
+    .hero-bonus__text {
+      font-size: clamp(1rem, 2.5vw, 1.12rem);
+      font-weight: 700;
+      color: var(--gray-800, #1F2937);
+      line-height: 1.55;
+    }
+
+    .hero-bonus__text strong { color: var(--gray-900); }
+
+    .hero-bonus__arrow {
+      display: flex;
+      justify-content: center;
+      margin-top: 14px;
+      color: var(--red-500);
+      animation: bounce 1.8s ease-in-out infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(5px); }
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      background: var(--gray-900);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      cursor: pointer;
+    }
+
+    .video-wrapper:focus-visible { outline: 3px solid var(--red-500); outline-offset: 4px; }
+
+    .video-placeholder {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .play-btn {
+      width: 72px;
+      height: 72px;
+      background: var(--red-500);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 0 0 rgba(229,57,53,.5);
+      transition: transform 200ms ease, background 200ms ease;
+      animation: pulse 2.5s infinite;
+      border: none;
+      cursor: pointer;
+    }
+
+    .play-btn:hover { transform: scale(1.08); background: var(--red-600); }
+    .play-btn:active { transform: scale(.97); }
+
+    @keyframes pulse {
+      0%   { box-shadow: 0 0 0 0 rgba(229,57,53,.55); }
+      70%  { box-shadow: 0 0 0 18px rgba(229,57,53,0); }
+      100% { box-shadow: 0 0 0 0 rgba(229,57,53,0); }
+    }
+
+    .video-label {
+      position: absolute;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,.65);
+      color: #fff;
+      font-size: .78rem;
+      font-weight: 600;
+      padding: 5px 14px;
+      border-radius: 99px;
+      white-space: nowrap;
+      backdrop-filter: blur(4px);
+    }
+
+    /* ─── Social Proof ─────────────────────────────────────── */
+    .social-proof {
+      margin-top: 28px;
+      background: var(--red-50);
+      border: 1px solid #FFCDD2;
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .social-proof__icon {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      background: var(--red-100);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+    }
+
+    .social-proof__text {
+      font-size: .93rem;
+      color: var(--gray-700);
+      line-height: 1.65;
+    }
+
+    .social-proof__text strong {
+      color: var(--red-600);
+      font-weight: 700;
+    }
+
+    /* ─── Scarcity ──────────────────────────────────────────── */
+    .scarcity-pill {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin: 40px 0 16px;
+    }
+
+    .scarcity-pill span {
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--red-600);
+      background: var(--red-100);
+      padding: 5px 14px;
+      border-radius: 99px;
+      border: 1px solid #FFCDD2;
+    }
+
+    /* ─── CTA Button ────────────────────────────────────────── */
+    .cta-block { text-align: center; }
+
+    .cta-btn {
+      display: inline-block;
+      background: linear-gradient(180deg, var(--red-500) 0%, var(--red-600) 100%);
+      color: var(--white);
+      font-family: var(--font);
+      font-size: clamp(.95rem, 2.5vw, 1.1rem);
+      font-weight: 800;
+      letter-spacing: .02em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 18px 32px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      max-width: 560px;
+      box-shadow: 0 4px 20px rgba(198,40,40,.35), 0 2px 6px rgba(198,40,40,.2);
+      transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+      line-height: 1.35;
+      min-height: 64px;
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(198,40,40,.45), 0 4px 10px rgba(198,40,40,.25);
+      filter: brightness(1.04);
+    }
+
+    .cta-btn:active {
+      transform: translateY(0) scale(.98);
+      box-shadow: 0 2px 8px rgba(198,40,40,.3);
+    }
+
+    .cta-btn:focus-visible { outline: 3px solid var(--red-400); outline-offset: 4px; }
+
+    .cta-sub {
+      margin-top: 10px;
+      font-size: .82rem;
+      color: var(--gray-500);
+      line-height: 1.5;
+    }
+
+    .cta-sub strong { color: var(--gray-700); }
+
+    /* ─── Section — Why Not Enough ──────────────────────────── */
+    .section { padding: 64px 0; }
+    .section--alt { background: var(--gray-100); }
+
+    .section__label {
+      display: block;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--red-500);
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .section__title {
+      font-size: clamp(1.3rem, 4vw, 1.85rem);
+      font-weight: 800;
+      color: var(--gray-900);
+      line-height: 1.3;
+      text-align: center;
+      max-width: 540px;
+      margin: 0 auto 40px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      box-shadow: var(--shadow-sm);
+      transition: transform 200ms ease, box-shadow 200ms ease;
+    }
+
+    .card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+
+    .card__icon {
+      width: 48px;
+      height: 48px;
+      background: var(--red-100);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+    .card__tag {
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      color: var(--red-500);
+      margin-bottom: 6px;
+    }
+
+    .card__title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--gray-900);
+      margin-bottom: 10px;
+    }
+
+    .card__body {
+      font-size: .88rem;
+      color: var(--gray-700);
+      line-height: 1.6;
+    }
+
+    /* ─── Section — What You Receive ───────────────────────── */
+    .receive-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    .receive-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: 10px;
+      padding: 18px 20px;
+      box-shadow: var(--shadow-sm);
+      transition: border-color 200ms ease;
+    }
+
+    .receive-item:hover { border-color: #FFCDD2; }
+
+    .receive-item__check {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      background: var(--red-500);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+    }
+
+    .receive-item__text strong {
+      display: block;
+      font-size: .95rem;
+      font-weight: 700;
+      color: var(--gray-900);
+      margin-bottom: 3px;
+    }
+
+    .receive-item__text span {
+      font-size: .85rem;
+      color: var(--gray-500);
+      line-height: 1.5;
+    }
+
+    /* ─── Closing ──────────────────────────────────────────── */
+    .closing {
+      padding: 48px 0 64px;
+      text-align: center;
+    }
+
+    .closing__box {
+      background: var(--gray-100);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      max-width: 560px;
+      margin: 32px auto 0;
+    }
+
+    .closing__box p {
+      font-size: .9rem;
+      color: var(--gray-700);
+      line-height: 1.7;
+    }
+
+    .closing__box p + p { margin-top: 12px; }
+
+    .closing__box strong { color: var(--red-600); font-weight: 700; }
+
+    /* ─── Footer ───────────────────────────────────────────── */
+    .footer {
+      border-top: 1px solid var(--gray-200);
+      padding: 20px;
+      text-align: center;
+    }
+
+    .footer p {
+      font-size: .75rem;
+      color: var(--gray-500);
+      line-height: 1.6;
+    }
+
+    /* ─── FAQ ──────────────────────────────────────────────── */
+    .faq { padding: 64px 0; background: var(--white); }
+
+    .faq__list {
+      max-width: 600px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .faq__item {
+      border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: border-color 200ms ease;
+    }
+
+    .faq__item[open] { border-color: #FFCDD2; }
+
+    .faq__item summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 18px 20px;
+      font-size: .95rem;
+      font-weight: 700;
+      color: var(--gray-900);
+      cursor: pointer;
+      list-style: none;
+      user-select: none;
+    }
+
+    .faq__item summary::-webkit-details-marker { display: none; }
+
+    .faq__icon {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--red-100);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 250ms ease, background 200ms ease;
+    }
+
+    .faq__item[open] .faq__icon {
+      transform: rotate(45deg);
+      background: var(--red-500);
+    }
+
+    .faq__item[open] .faq__icon svg path { stroke: white; }
+
+    .faq__body {
+      padding: 0 20px 18px;
+      font-size: .9rem;
+      color: var(--gray-700);
+      line-height: 1.7;
+    }
+
+    /* ─── Responsive ───────────────────────────────────────── */
+    @media (max-width: 600px) {
+      .hero { padding: 40px 0 48px; }
+      .contrast-grid { grid-template-columns: 1fr; max-width: 360px; }
+      .cards { grid-template-columns: 1fr; }
+      .cta-btn { padding: 18px 20px; font-size: .9rem; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ─── Header Image ─────────────────────────────────── -->
+  <!-- Adicione sua imagem na pasta images/ e ajuste o src abaixo -->
+  <div class="header-img">
+    <img src="images/header.jpg" alt="" role="presentation" />
+  </div>
+
+  <!-- ─── First Fold ────────────────────────────────────── -->
+  <section class="hero" aria-labelledby="hero-heading">
+    <div class="container">
+
+      <!-- Bloco 1 — Headline -->
+      <h1 class="hero__headline" id="hero-heading">
+        Parabéns! Você acaba de economizar
+        <span>meses de planejamento.</span>
+      </h1>
+
+      <!-- Bloco 2 — Pergunta de contraste -->
+      <div class="hero-question">
+        <p>
+          Agora me responde: Você quer apenas os <span class="hq-muted">"ingredientes"</span> ou quer a
+          <span class="hq-red">receita completa para o sucesso da sua aula?</span>
+        </p>
+      </div>
+
+      <!-- Bloco 3 — Estatística em destaque -->
+      <div class="hero-stat" role="note">
+        <div class="hero-stat__number" aria-hidden="true">1/3</div>
+        <div class="hero-stat__divider" aria-hidden="true"></div>
+        <p class="hero-stat__text">
+          da aula são as atividades. O que define se sua turma vai aprender ou fazer "bagunça"
+          é a sua <em>Estratégia de Condução.</em>
+        </p>
+      </div>
+
+      <!-- Bloco 4 — Convite para o vídeo -->
+      <div class="hero-bonus" role="note">
+        <p class="hero-bonus__text">
+          Pensando nisso, <strong>preparei um bônus para você.</strong><br>
+          Basta assistir o vídeo abaixo.
+        </p>
+        <div class="hero-bonus__arrow" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+            <path d="M14 4V22M14 22L7 15M14 22L21 15" stroke="#E53935" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Bloco 5 — Vídeo -->
+      <div id="video-container" style="max-width:280px;margin:0 auto;border-radius:14px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.13);position:relative;">
+        <!-- Thumbnail overlay -->
+        <div id="video-thumb" onclick="startVideo()" style="position:absolute;inset:0;z-index:10;background:linear-gradient(160deg,#1a1a2e 0%,#16213e 60%,#0f0f1a 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;gap:16px;">
+          <div style="width:64px;height:64px;background:#C62828;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 10px rgba(198,40,40,0.2);transition:transform .2s;">
+            <svg width="26" height="26" viewBox="0 0 26 26" fill="none"><path d="M9 5L21 13L9 21V5Z" fill="white"/></svg>
+          </div>
+          <span style="color:#fff;font-family:'Inter',sans-serif;font-size:13px;font-weight:500;letter-spacing:0.3px;opacity:0.9;">Toque aqui para assistir</span>
+        </div>
+        <div style="padding:177.78% 0 0 0;position:relative;"><iframe id="vimeo-iframe" src="https://player.vimeo.com/video/1173696277?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Aula Participativa"></iframe></div>
+      </div>
+      <script src="https://player.vimeo.com/api/player.js"></script>
+      <script>
+        function startVideo() {
+          var thumb = document.getElementById('video-thumb');
+          var iframe = document.getElementById('vimeo-iframe');
+          thumb.style.display = 'none';
+          iframe.src = iframe.src + '&autoplay=1';
+        }
+        document.getElementById('video-thumb').addEventListener('mouseenter', function() {
+          this.querySelector('div').style.transform = 'scale(1.1)';
+        });
+        document.getElementById('video-thumb').addEventListener('mouseleave', function() {
+          this.querySelector('div').style.transform = 'scale(1)';
+        });
+      </script>
+
+      <!-- Bloco 6 — Escassez -->
+      <div class="scarcity-pill" style="margin-top: 28px;">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M7 1V7.5L10 9.5" stroke="#C62828" stroke-width="1.6" stroke-linecap="round"/>
+          <circle cx="7" cy="7" r="6" stroke="#C62828" stroke-width="1.6"/>
+        </svg>
+        <span>Oferta especial disponível apenas nesta página</span>
+      </div>
+
+      <!-- Bloco 7 — CTA -->
+      <div class="cta-block">
+        <div id="wiapy_upsell"></div>
+        <script>
+          initWiapyUpsell({
+            linkUrl: "https://pay.wiapy.com/checkout/69b45a84171caffc995c6bfc",
+            linkText: "SIM, EU ACEITO ESSA OFERTA",
+            styles: {
+              backgroundColor: "#E53935",
+              hoverBackgroundColor: "#C62828",
+              fontSize: "17px",
+              borderRadius: "10px"
+            },
+            refusalLinkUrl: "https://wiapy.com/login",
+            refusalLinkText: "Recusar esta oferta",
+            refusalLinkColor: "#6B7280"
+          });
+        </script>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── Por que atividades não bastam ─────────────────── -->
+  <section class="section section--alt" aria-labelledby="why-heading">
+    <div class="container">
+      <span class="section__label">Entenda a diferença</span>
+      <h2 class="section__title" id="why-heading">
+        Por que apenas ter boas atividades não é suficiente?
+      </h2>
+
+      <div class="cards" role="list">
+
+        <article class="card" role="listitem">
+          <div class="card__icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="11" cy="11" r="9" stroke="#C62828" stroke-width="1.7"/>
+              <path d="M11 6V11.5L14 13.5" stroke="#C62828" stroke-width="1.7" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="card__tag">01 — Início</div>
+          <h3 class="card__title">O Preparo</h3>
+          <p class="card__body">Como converter a agitação do corredor em foco total no conteúdo em menos de 5 minutos.</p>
+        </article>
+
+        <article class="card" role="listitem">
+          <div class="card__icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 11H18M11 4C11 4 7 7 7 11C7 15 11 18 11 18C11 18 15 15 15 11C15 7 11 4 11 4Z" stroke="#C62828" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="card__tag">02 — Meio</div>
+          <h3 class="card__title">O Ponto da Massa</h3>
+          <p class="card__body">Como conduzir as atividades sem deixar a sala virar bagunça.</p>
+        </article>
+
+        <article class="card" role="listitem">
+          <div class="card__icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 17L8 13L12 16L18 8" stroke="#C62828" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="18" cy="8" r="2" fill="#C62828"/>
+            </svg>
+          </div>
+          <div class="card__tag">03 — Fim</div>
+          <h3 class="card__title">A Finalização</h3>
+          <p class="card__body">Como conectar a prática com a teoria para que o conteúdo realmente seja aprendido.</p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── O que você recebe ─────────────────────────────── -->
+  <section class="section" aria-labelledby="receive-heading">
+    <div class="container">
+      <span class="section__label">Incluso nesta oferta</span>
+      <h2 class="section__title" id="receive-heading">
+        O que você recebe no Mapa da Aula Participativa
+      </h2>
+
+      <ul class="receive-list" role="list">
+
+        <li class="receive-item">
+          <div class="receive-item__check" aria-hidden="true">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5L5 9.5L11 3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="receive-item__text">
+            <strong>Objetivo Pedagógico claro</strong>
+            <span>Cada estrutura entrega um resultado de aprendizado mensurável.</span>
+          </div>
+        </li>
+
+        <li class="receive-item">
+          <div class="receive-item__check" aria-hidden="true">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5L5 9.5L11 3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="receive-item__text">
+            <strong>Fundamento de Engajamento</strong>
+            <span>A base pedagógica por trás de cada método participativo.</span>
+          </div>
+        </li>
+
+        <li class="receive-item">
+          <div class="receive-item__check" aria-hidden="true">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5L5 9.5L11 3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="receive-item__text">
+            <strong>Exemplos Reais</strong>
+            <span>Situações práticas de sala de aula para facilitar a aplicação.</span>
+          </div>
+        </li>
+
+        <li class="receive-item">
+          <div class="receive-item__check" aria-hidden="true">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5L5 9.5L11 3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="receive-item__text">
+            <strong>Independência Total</strong>
+            <span>Aplique sem depender de roteiros ou suporte externo.</span>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+  </section>
+
+  <!-- ─── CTA Final ─────────────────────────────────────── -->
+  <section id="cta-final" aria-label="Ação final" style="padding: 0 0 16px; background: var(--gray-100);">
+    <div class="container" style="padding-top: 40px; padding-bottom: 40px;">
+      <div class="cta-block">
+        <div id="wiapy_upsell_2"></div>
+        <script>
+          initWiapyUpsell({
+            linkUrl: "https://pay.wiapy.com/checkout/69b45a84171caffc995c6bfc",
+            linkText: "SIM, EU ACEITO ESSA OFERTA",
+            styles: {
+              backgroundColor: "#E53935",
+              hoverBackgroundColor: "#C62828",
+              fontSize: "17px",
+              borderRadius: "10px"
+            },
+            refusalLinkUrl: "https://wiapy.com/login",
+            refusalLinkText: "Recusar esta oferta",
+            refusalLinkColor: "#6B7280"
+          });
+        </script>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Fechamento ────────────────────────────────────── -->
+  <section class="closing" aria-label="Aviso de encerramento da oferta">
+    <div class="container">
+      <div class="closing__box" role="note">
+        <p>
+          Esta é uma oferta complementar criada para funcionar junto com o material
+          que você acabou de adquirir.
+        </p>
+        <p>
+          <strong>Ao fechar ou atualizar esta página, este valor especial não estará mais
+          disponível dentro do seu painel de aluno.</strong>
+        </p>
+      </div>
+
+      <div class="cta-block" style="margin-top: 28px;">
+        <a href="#cta-final" class="cta-btn" style="display:inline-flex; align-items:center; justify-content:center; gap:8px; text-decoration:none;">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 2V12M8 12L4 8M8 12L12 8" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          SIM, EU ACEITO ESSA OFERTA
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FAQ ───────────────────────────────────────────── -->
+  <section class="faq" aria-labelledby="faq-heading">
+    <div class="container">
+      <span class="section__label">Dúvidas frequentes</span>
+      <h2 class="section__title" id="faq-heading">Perguntas frequentes</h2>
+
+      <div class="faq__list">
+
+        <details class="faq__item">
+          <summary>
+            Para qual nível de ensino é indicado o Mapa da Aula Participativa?
+            <span class="faq__icon" aria-hidden="true">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 2V10M2 6H10" stroke="#C62828" stroke-width="2" stroke-linecap="round"/></svg>
+            </span>
+          </summary>
+          <p class="faq__body">O Mapa foi desenvolvido para professores de todos os níveis — Ensino Fundamental, Médio e Superior. As 50 estruturas são adaptáveis a qualquer faixa etária e disciplina.</p>
+        </details>
+
+        <details class="faq__item">
+          <summary>
+            Em quanto tempo terei acesso ao material?
+            <span class="faq__icon" aria-hidden="true">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 2V10M2 6H10" stroke="#C62828" stroke-width="2" stroke-linecap="round"/></svg>
+            </span>
+          </summary>
+          <p class="faq__body">O acesso é liberado imediatamente após a confirmação do pagamento. Você receberá as instruções no e-mail cadastrado.</p>
+        </details>
+
+        <details class="faq__item">
+          <summary>
+            Preciso de experiência prévia para usar o Mapa?
+            <span class="faq__icon" aria-hidden="true">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 2V10M2 6H10" stroke="#C62828" stroke-width="2" stroke-linecap="round"/></svg>
+            </span>
+          </summary>
+          <p class="faq__body">Não. O Mapa foi criado para ser aplicável imediatamente, independente do seu nível de experiência. Cada estrutura já vem com exemplos reais e passo a passo de aplicação.</p>
+        </details>
+
+        <details class="faq__item">
+          <summary>
+            O Mapa funciona junto com as atividades que acabei de comprar?
+            <span class="faq__icon" aria-hidden="true">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 2V10M2 6H10" stroke="#C62828" stroke-width="2" stroke-linecap="round"/></svg>
+            </span>
+          </summary>
+          <p class="faq__body">Sim. O Mapa foi criado exatamente para isso — ele é a estratégia de condução que transforma as atividades que você adquiriu em uma aula completa e eficiente.</p>
+        </details>
+
+        <details class="faq__item">
+          <summary>
+            Esta oferta estará disponível depois que eu sair desta página?
+            <span class="faq__icon" aria-hidden="true">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 2V10M2 6H10" stroke="#C62828" stroke-width="2" stroke-linecap="round"/></svg>
+            </span>
+          </summary>
+          <p class="faq__body">Não. Este é um valor especial exclusivo para quem acabou de realizar a compra. Ao fechar ou atualizar esta página, o desconto não estará mais disponível no seu painel.</p>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Footer ────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="container">
+      <p>© 2025 Mapa da Aula Participativa. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
